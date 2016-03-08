@@ -126,7 +126,9 @@ module.exports = function(tilelive, options) {
           var vt = new mapnik.VectorTile(_z, _x, _y);
 
           if (headers["content-type"] === "application/x-protobuf") {
-            vt.setData(buf);
+            try {
+              vt.setData(buf);
+            } catch(e) {}
             return next(null, vt, headers);
           }
 
