@@ -128,7 +128,9 @@ module.exports = function(tilelive, options) {
           if (headers["content-type"] === "application/x-protobuf") {
             try {
               vt.setData(buf);
-            } catch(e) {}
+            } catch(e) {
+              console.log(e);
+            }
             return next(null, vt, headers);
           }
 
