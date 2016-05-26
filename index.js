@@ -135,8 +135,13 @@ module.exports = function(tilelive, options) {
               return next(err);
             }
 
-            vt.addImage(im, src.info.id.replace(/\./g, "_"));
-            return next(null, vt, headers);
+            im.encode("webp", function(err, encoded) {
+              if (err) {
+                return next(err);
+              }
+              vt.addImageBufferSync(encoded, src.info.id.replace(/\./g, "_"));
+              return next(null, vt, headers);
+            });
           });
         }
       ], function(err, tile, headers) {
