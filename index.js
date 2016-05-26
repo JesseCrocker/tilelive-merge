@@ -135,14 +135,8 @@ module.exports = function(tilelive, options) {
               return next(err);
             }
 
-            return async.waterfall([
-              async.apply(im.encode, "webp"),
-              function(img, done) {
-                vt.addImage(img, src.info.id.replace(/\./g, "_"));
-
-                return done(null, vt, headers);
-              }
-            ], next);
+            vt.addImage(im, src.info.id.replace(/\./g, "_"));
+            return next(null, vt, headers);
           });
         }
       ], function(err, tile, headers) {
